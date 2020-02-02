@@ -69,7 +69,7 @@ namespace Codenation.Challenge
 
 
         [Fact]
-        public void Should_Get_Null_Teams_List()
+        public void Should_Get_Empty_Teams_List()
         {
             var manager = new SoccerTeamsManager();
             var teams = manager.GetTeams();

@@ -10,4 +10,4 @@ Results File: C:\Users\devso\CodeNation\csharp-1\Source.TestSubmission\results.x
 Execu‡Æo de Teste Bem-sucedida.
 Total de testes: 25
      Aprovados: 25
-Tempo total: 1,5645 Segundos
+Tempo total: 2,0912 Segundos

@@ -107,9 +107,7 @@ namespace Codenation.Challenge
         {
             if (teams.Any(t => t.id == teamId))
             {
-                List<long> players = teams.First(t => t.id == teamId).Players.Select(p => p.id).ToList();
-                players.Sort();
-                return players;
+                return teams.First(t => t.id == teamId).Players.OrderBy(p => p.id).Select(p => p.id).ToList();
             }
             else
             {
@@ -133,9 +131,11 @@ namespace Codenation.Challenge
         {
             if (teams.Any(t => t.id == teamId))
             {
-                DateTime date = teams.First(t => t.id == teamId).Players.Min(p => p.birthDate);
-                var team = teams.First(t => t.id == teamId);
-                return team.Players.OrderBy(p => p.id).First(p => p.birthDate == date).id;
+                Player olderTeamPlayer = teams.FirstOrDefault(t => t.id == teamId).Players.OrderBy(p => p.birthDate).ThenBy(p => p.id).FirstOrDefault();
+                if (olderTeamPlayer != null)
+                    return olderTeamPlayer.id;
+                else
+                    throw new PlayerNotFoundException();
             }
             else
             {
@@ -145,17 +145,18 @@ namespace Codenation.Challenge
 
         public List<long> GetTeams()
         {
-            teams = teams.OrderBy(t => t.id).ToList();
-            return teams.Select(t => t.id).ToList();
+            return teams.OrderBy(t => t.id).Select(t => t.id).ToList();
         }
 
         public long GetHigherSalaryPlayer(long teamId)
         {
             if (teams.Any(t => t.id == teamId))
             {
-                decimal higherSalary = teams.First(t => t.id == teamId).Players.Max(p => p.salary);
-                var team = teams.First(t => t.id == teamId);
-                return team.Players.OrderBy(p => p.id).First(p => p.salary == higherSalary).id;
+                Player higherSalaryPlayer = teams.FirstOrDefault(t => t.id == teamId).Players.OrderByDescending(p => p.salary).ThenBy(p => p.id).FirstOrDefault();
+                if (higherSalaryPlayer != null)
+                    return higherSalaryPlayer.id;
+                else
+                    throw new PlayerNotFoundException();
             }
             else
             {
@@ -183,10 +184,7 @@ namespace Codenation.Challenge
                 players.AddRange(t.Players);
             }
 
-            players = players.OrderByDescending(p => p.skillLevel).ThenBy(p => p.id).ToList();
-            var playersIds = players.Select(p => p.id).ToList();
-            List<long> topPlayers = playersIds.Take(top).ToList();
-            return topPlayers;
+            return players.OrderByDescending(p => p.skillLevel).ThenBy(p => p.id).Take(top).Select(p => p.id).ToList();
         }
 
         public string GetVisitorShirtColor(long teamId, long visitorTeamId)
