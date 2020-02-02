@@ -44,77 +44,102 @@ namespace Codenation.Challenge
         [Fact]
         public void TestAddition()
         {
-            var calculator = new FieldCalculator();
-
+            var assembly = Assembly.Load(ASSEMBLY_NAME);
+            Type actual = assembly.GetType(CLASS_FULL_NAME);
+            var calculator = Activator.CreateInstance(actual);
             var teste = new TestClass();
+
             teste.SetPrimeiroValor(10);
             teste.SetSegundoValor(5);
-            teste.SetTerceiroValor(-15);
-            Assert.Equal(0, calculator.Addition(teste));
+            teste.SetTerceiroValor(15);
+
+            var objArray = new Object[] { teste };
+
+            Assert.Equal((decimal)30, calculator.GetType().InvokeMember(ADDITION_METHOD, BindingFlags.InvokeMethod, null, calculator, objArray));
         }
 
         [Fact]
         public void AdditionShouldReturnZero()
         {
-            var calculator = new FieldCalculator();
-            var teste = new Object();
-            Assert.Equal(0, calculator.Addition(teste));
+            var assembly = Assembly.Load(ASSEMBLY_NAME);
+            Type actual = assembly.GetType(CLASS_FULL_NAME);
+            var calculator = Activator.CreateInstance(actual);
+            var objArray = new object[] { new Object() };
+
+            Assert.Equal((decimal)0, calculator.GetType().InvokeMember(ADDITION_METHOD, BindingFlags.InvokeMethod, null, calculator, objArray));
         }
 
         [Fact]
         public void SubtractionShouldReturnZero()
         {
-            var calculator = new FieldCalculator();
-            var teste = new Object();
-            Assert.Equal(0, calculator.Subtraction(teste));
+            var assembly = Assembly.Load(ASSEMBLY_NAME);
+            Type actual = assembly.GetType(CLASS_FULL_NAME);
+            var calculator = Activator.CreateInstance(actual);
+            var objArray = new object[] { new Object() };
+
+            Assert.Equal((decimal)0, calculator.GetType().InvokeMember(SUBTRACTION_METHOD, BindingFlags.InvokeMethod, null, calculator, objArray));
         }
 
         [Fact]
         public void TestSubtraction()
         {
-            var calculator = new FieldCalculator();
+            var assembly = Assembly.Load(ASSEMBLY_NAME);
+            Type actual = assembly.GetType(CLASS_FULL_NAME);
+            var calculator = Activator.CreateInstance(actual);
 
             var teste = new TestClass();
             teste.SetQuartoValor(-10);
             teste.SetQuintoValor(5);
-            //teste.SetTerceiroValor(-15);
-            Assert.Equal(5, calculator.Subtraction(teste));
+            var objArray = new object[] { teste };
+
+            Assert.Equal((decimal)5, calculator.GetType().InvokeMember(SUBTRACTION_METHOD, BindingFlags.InvokeMethod, null, calculator, objArray));
         }
 
         [Fact]
         public void TestTotalAddition()
         {
-            var calculator = new FieldCalculator();
+            var assembly = Assembly.Load(ASSEMBLY_NAME);
+            Type actual = assembly.GetType(CLASS_FULL_NAME);
+            var calculator = Activator.CreateInstance(actual);
 
             var teste = new TestClass();
             teste.SetPrimeiroValor(-10);
             teste.SetSegundoValor(5);
-            //teste.SetTerceiroValor(-15);
-            Assert.Equal(-5, calculator.Total(teste));
+            var objArray = new object[] { teste };
+
+            Assert.Equal((decimal)-5, calculator.GetType().InvokeMember(TOTAL_METHOD, BindingFlags.InvokeMethod, null, calculator, objArray));
         }
 
         [Fact]
         public void TestTotal()
         {
-            var calculator = new FieldCalculator();
+            var assembly = Assembly.Load(ASSEMBLY_NAME);
+            Type actual = assembly.GetType(CLASS_FULL_NAME);
+            var calculator = Activator.CreateInstance(actual);
 
             var teste = new TestClass();
             teste.SetPrimeiroValor(-10);
             teste.SetSegundoValor(20);
             teste.SetQuartoValor(-10);
             teste.SetQuintoValor(20);
-            Assert.Equal(0, calculator.Total(teste));
+            var objArray = new object[] { teste };
+
+            Assert.Equal((decimal)0, calculator.GetType().InvokeMember(TOTAL_METHOD, BindingFlags.InvokeMethod, null, calculator, objArray));
         }
 
         [Fact]
         public void TestTotalSubtraction()
         {
-            var calculator = new FieldCalculator();
+            var assembly = Assembly.Load(ASSEMBLY_NAME);
+            Type actual = assembly.GetType(CLASS_FULL_NAME);
+            var calculator = Activator.CreateInstance(actual);
 
             var teste = new TestClass();
             teste.SetQuartoValor(-10);
             teste.SetQuintoValor(20);
-            Assert.Equal(-10, calculator.Total(teste));
+            var objArray = new object[] { teste };
+
+            Assert.Equal((decimal)-10, calculator.GetType().InvokeMember(TOTAL_METHOD, BindingFlags.InvokeMethod, null, calculator, objArray));
         }
     }
 }
