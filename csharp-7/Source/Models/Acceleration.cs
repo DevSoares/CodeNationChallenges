@@ -14,12 +14,12 @@ namespace Codenation.Challenge.Models
         public int AccelerationId { get; set; }
 
         [Required]
-        [Column("name", TypeName = "varchar(100)")]
-        public string AccelerationName { get; set; }
+        [Column("name")]
+        public string Name { get; set; }
 
         [Required]
-        [Column("slug", TypeName = "varchar(50)")]
-        public string AccelerationSlug { get; set; }
+        [Column("slug")]
+        public string Slug { get; set; }
 
         [Required]
         [Column("challenge_id")]

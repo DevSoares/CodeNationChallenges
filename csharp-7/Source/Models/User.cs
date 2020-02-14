@@ -14,19 +14,19 @@ namespace Codenation.Challenge.Models
         public int UserId { get; set; }
 
         [Required]
-        [Column("full_name", TypeName = "varchar(100)")]
+        [Column("full_name")]
         public string UserName { get; set; }
 
         [Required]
-        [Column("email", TypeName = "varchar(100)")]
+        [Column("email")]
         public string Email { get; set; }
 
         [Required]
-        [Column("nickname", TypeName = "varchar(50)")]
+        [Column("nickname")]
         public string Nickname { get; set; }
 
         [Required]
-        [Column("password", TypeName = "varchar(255)")]
+        [Column("password")]
         public string Password { get; set; }
 
         [Required]

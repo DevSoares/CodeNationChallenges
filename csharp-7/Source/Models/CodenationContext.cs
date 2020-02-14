@@ -22,6 +22,24 @@ namespace Codenation.Challenge.Models
             modelBuilder.Entity<Candidate>().HasKey(c => new { c.UserId, c.AccelerationId, c.CompanynId });
 
             modelBuilder.Entity<Submission>().HasKey(s => new { s.UserId, s.ChallengeId });
+
+            modelBuilder.Entity<Acceleration>().Property(a => a.Name).HasMaxLength(100);
+            modelBuilder.Entity<Acceleration>().Property(a => a.Slug).HasMaxLength(50);
+
+            modelBuilder.Entity<Company>().Property(c => c.Name).HasMaxLength(100);
+            modelBuilder.Entity<Company>().Property(c => c.Slug).HasMaxLength(50);
+
+            modelBuilder.Entity<User>().Property(u => u.UserName).HasMaxLength(100);
+            modelBuilder.Entity<User>().Property(u => u.Email).HasMaxLength(100);
+            modelBuilder.Entity<User>().Property(u => u.Nickname).HasMaxLength(50);
+            modelBuilder.Entity<User>().Property(u => u.Password).HasMaxLength(255);
+
+            modelBuilder.Entity<Challenge>().Property(c => c.Name).HasMaxLength(100);
+            modelBuilder.Entity<Challenge>().Property(c => c.Slug).HasMaxLength(50);
+
+            //modelBuilder.Entity<Submission>().Property(s => s.Score).HasColumnType("decimal(9,2)");
+            modelBuilder.Entity<Submission>().Property(s => s.Score).HasColumnName("score");
+
         }
     }
 }
