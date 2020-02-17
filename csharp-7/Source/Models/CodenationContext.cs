@@ -36,10 +36,6 @@ namespace Codenation.Challenge.Models
 
             modelBuilder.Entity<Challenge>().Property(c => c.Name).HasMaxLength(100);
             modelBuilder.Entity<Challenge>().Property(c => c.Slug).HasMaxLength(50);
-
-            //modelBuilder.Entity<Submission>().Property(s => s.Score).HasColumnType("decimal(9,2)");
-            modelBuilder.Entity<Submission>().Property(s => s.Score).HasColumnName("score");
-
         }
     }
 }

@@ -17,9 +17,8 @@ namespace Codenation.Challenge.Models
         public int ChallengeId { get; set; }
 
         [Required]
-        //[Column("score")]
-        [Column(TypeName = "decimal(9,2)")]
-        public float Score { get; set; }
+        [Column("score")]
+        public decimal Score { get; set; }
 
         [Required]
         [Timestamp]
