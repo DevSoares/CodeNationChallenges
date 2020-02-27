@@ -16,13 +16,15 @@ namespace Codenation.Challenge.Services
 
         public IList<User> FindByAccelerationName(string name)
         {
-            List<int> acceletarionIds = CodenationContext.Accelerations.Where(a => a.Name == name).Select(a => a.Id).ToList();
+            int acceletarionId = CodenationContext.Accelerations.FirstOrDefault(a => a.Name == name).Id;
+
+            List<int> userIds = CodenationContext.Candidates.Where(c => c.AccelerationId == acceletarionId).Select(c2 => c2.UserId).ToList();
 
             IList<User> users = new List<User>();
 
-            Parallel.ForEach(acceletarionIds, action =>
+            Parallel.ForEach(userIds, action =>
             {
-                users.Add(FindById(acceletarionIds.FirstOrDefault()));
+                users.Add(FindById(userIds.FirstOrDefault()));
             });
 
             return users;
@@ -43,7 +45,7 @@ namespace Codenation.Challenge.Services
 
         public User FindById(int id)
         {
-            return CodenationContext.Users.FirstOrDefault(u => u.Id == id);
+            return CodenationContext.Users.Find(id);
         }
 
         public User Save(User user)
