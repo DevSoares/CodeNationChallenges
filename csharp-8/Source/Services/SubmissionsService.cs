@@ -14,7 +14,7 @@ namespace Codenation.Challenge.Services
 
         public IList<Submission> FindByChallengeIdAndAccelerationId(int challengeId, int accelerationId)
         {
-            List<int> challengeIds = CodenationContext.Accelerations.Where(a => a.Id == accelerationId).Select(a => a.ChallengeId).ToList();
+            List<int> challengeIds = CodenationContext.Accelerations.Where(a => (a.Id == accelerationId) && (a.ChallengeId == challengeId)).Select(a => a.ChallengeId).ToList();
 
             return CodenationContext.Submissions.Where(s => challengeIds.Contains(s.ChallengeId)).ToList();
         }
