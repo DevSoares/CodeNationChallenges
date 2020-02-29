@@ -20,27 +20,14 @@ namespace Codenation.Challenge.Services
 
             List<int> userIds = CodenationContext.Candidates.Where(c => c.AccelerationId == acceletarionId).Select(c2 => c2.UserId).ToList();
 
-            IList<User> users = new List<User>();
-
-            Parallel.ForEach(userIds, action =>
-            {
-                users.Add(FindById(userIds.FirstOrDefault()));
-            });
-
-            return users;
+            return CodenationContext.Users.Where(u => userIds.Contains(u.Id)).ToList();
         }
 
         public IList<User> FindByCompanyId(int companyId)
         {
             List<int> userIds = CodenationContext.Candidates.Where(c => c.CompanyId == companyId).Select(c2 => c2.UserId).ToList();
-            IList<User> users = new List<User>();
 
-            Parallel.ForEach(userIds, action =>
-            {
-                users.Add(FindById(userIds.FirstOrDefault()));
-            });
-
-            return users;
+            return CodenationContext.Users.Where(u => userIds.Contains(u.Id)).ToList();
         }
 
         public User FindById(int id)
