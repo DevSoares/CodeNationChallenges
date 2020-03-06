@@ -16,11 +16,7 @@ namespace Codenation.Challenge.Services
 
         public IList<User> FindByAccelerationName(string name)
         {
-            int acceletarionId = CodenationContext.Accelerations.FirstOrDefault(a => a.Name == name).Id;
-
-            List<int> userIds = CodenationContext.Candidates.Where(c => c.AccelerationId == acceletarionId).Select(c2 => c2.UserId).ToList();
-
-            return CodenationContext.Users.Where(u => userIds.Contains(u.Id)).ToList();
+            return CodenationContext.Accelerations.Where(a => a.Name == name).SelectMany(a => a.Candidates).Select(c => c.User).Distinct().ToList();
         }
 
         public IList<User> FindByCompanyId(int companyId)
