@@ -15,9 +15,7 @@ namespace Codenation.Challenge.Services
 
         public IList<Company> FindByAccelerationId(int accelerationId)
         {
-            List<int> companiesIds = CodenationContext.Candidates.Where(c => c.AccelerationId == accelerationId).Select(a => a.CompanyId).ToList();
-
-            return CodenationContext.Companies.Where(c => companiesIds.Contains(c.Id)).ToList();
+            return CodenationContext.Accelerations.Where(a => a.Id == accelerationId).SelectMany(a => a.Candidates).Select(a => a.Company).Distinct().ToList();
         }
 
         public Company FindById(int id)
@@ -27,9 +25,7 @@ namespace Codenation.Challenge.Services
 
         public IList<Company> FindByUserId(int userId)
         {
-            List<int> companiesIds = CodenationContext.Candidates.Where(c => c.UserId == userId).Select(a => a.CompanyId).ToList();
-            
-            return CodenationContext.Companies.Where(c => companiesIds.Contains(c.Id)).ToList();
+            return CodenationContext.Candidates.Where(c => c.UserId == userId).Select(c => c.Company).Distinct().ToList();
         }
 
         public Company Save(Company company)
