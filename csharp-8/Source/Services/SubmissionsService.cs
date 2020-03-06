@@ -14,9 +14,9 @@ namespace Codenation.Challenge.Services
 
         public IList<Submission> FindByChallengeIdAndAccelerationId(int challengeId, int accelerationId)
         {
-            List<int> challengeIds = CodenationContext.Accelerations.Where(a => (a.Id == accelerationId) && (a.ChallengeId == challengeId)).Select(a => a.ChallengeId).ToList();
-
-            return CodenationContext.Submissions.Where(s => challengeIds.Contains(s.ChallengeId)).ToList();
+            return CodenationContext.Candidates.Where(c => c.AccelerationId == accelerationId)
+                                               .Select(c => c.User).SelectMany(u => u.Submissions)
+                                               .Where(s => s.ChallengeId == challengeId).Distinct().ToList();
         }
 
         public decimal FindHigherScoreByChallengeId(int challengeId)
