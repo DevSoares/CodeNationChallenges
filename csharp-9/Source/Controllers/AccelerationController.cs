@@ -40,7 +40,6 @@ namespace Codenation.Challenge.Controllers
         [HttpGet]
         public ActionResult<List<AccelerationDTO>> GetAll(int? companyId)
         {
-
             if (companyId != null)
             {
                 List<AccelerationDTO> accelerationDtoList = _accelerationService.FindByCompanyId(companyId.Value).Select(x => _mapper.Map<AccelerationDTO>(x)).ToList();
