@@ -13,10 +13,10 @@ namespace Codenation.Challenge.Controllers
     [ApiController]
     public class AccelerationController : ControllerBase
     {
-        private readonly IMapper _mapper;
-        private readonly AccelerationService _accelerationService;
+        private IMapper _mapper;
+        private IAccelerationService _accelerationService;
 
-        public AccelerationController(IMapper mapper, AccelerationService accelerationService)
+        public AccelerationController(IMapper mapper, IAccelerationService accelerationService)
         {
             _mapper = mapper;
             _accelerationService = accelerationService;
@@ -33,14 +33,14 @@ namespace Codenation.Challenge.Controllers
             if (acceleration != null)
                 accelerationDTO = _mapper.Map<AccelerationDTO>(acceleration);
 
-            return accelerationDTO;
+            return Ok(accelerationDTO);
         }
 
         // GET api/acceleration/
-        [HttpGet("{companyId}")]
+        [HttpGet]
         public ActionResult<List<AccelerationDTO>> Get(int? companyId)
         {
-            List<Acceleration> accelerationList = new List<Acceleration>();
+            List<Acceleration> accelerationList;
             List<AccelerationDTO> accelerationDtoList = new List<AccelerationDTO>();
 
             if (companyId != null)
@@ -56,7 +56,7 @@ namespace Codenation.Challenge.Controllers
                 }
             }
 
-            return accelerationDtoList;
+            return Ok(accelerationDtoList);
         }
 
         // POST api/acceleration
