@@ -52,5 +52,18 @@ namespace Codenation.Challenge.Controllers
             else
                 return NoContent();
         }
+
+        public ActionResult<CandidateDTO> Post([FromBody] CandidateDTO value)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            else
+            {
+                Candidate candidate = _mapper.Map<Candidate>(value);
+                _candidateService.Save(candidate);
+                CandidateDTO candidateDTO = _mapper.Map<CandidateDTO>(candidate);
+                return Ok(candidateDTO);
+            }
+        }
     }
 }
