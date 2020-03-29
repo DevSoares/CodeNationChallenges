@@ -36,6 +36,21 @@ namespace Codenation.Challenge.Controllers
             return candidateDto;
         }
 
-
+        [HttpGet]
+        public ActionResult<IEnumerable<CandidateDTO>> GetAll(int? companyId = null, int? accelerationId = null)
+        {
+            if (companyId.HasValue)
+            {
+                List<CandidateDTO> candidateDTOs = _candidateService.FindByCompanyId(companyId.Value).Select(x => _mapper.Map<CandidateDTO>(x)).ToList();
+                return Ok(candidateDTOs);
+            }
+            else if (accelerationId.HasValue)
+            {
+                List<CandidateDTO> candidateDTOs = _candidateService.FindByCompanyId(accelerationId.Value).Select(x => _mapper.Map<CandidateDTO>(x)).ToList();
+                return Ok(candidateDTOs);
+            }
+            else
+                return NoContent();
+        }
     }
 }
