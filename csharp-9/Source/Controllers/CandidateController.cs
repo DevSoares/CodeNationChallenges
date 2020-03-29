@@ -14,9 +14,9 @@ namespace Codenation.Challenge.Controllers
     public class CandidateController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly CandidateService _candidateService;
+        private readonly ICandidateService _candidateService;
 
-        public CandidateController(CandidateService candidateService, IMapper mapper)
+        public CandidateController(ICandidateService candidateService, IMapper mapper)
         {
             _mapper = mapper;
             _candidateService = candidateService;
